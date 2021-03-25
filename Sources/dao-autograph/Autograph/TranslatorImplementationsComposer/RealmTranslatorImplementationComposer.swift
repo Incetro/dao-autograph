@@ -37,32 +37,46 @@ public final class RealmTranslatorImplementationComposer {
             .structures
             .filter { $0.name.isPlainObjectName }
             .filter { $0.annotations.contains(annotationName: "realm") }
-        return try targetStructures
+        let targetClasses = specifications
+            .classes
+            .filter { $0.name.isPlainObjectName }
+            .filter { $0.annotations.contains(annotationName: "realm") }
+        let structuresImplementations = try targetStructures
             .map {
                 try composeTranslator(
-                    forStructure: $0,
+                    forExtensible: $0,
                     specifications: specifications,
                     parameters: parameters,
                     translatorsFolder: translatorsFolder
                 )
             }
+        let classesImplementations = try targetClasses
+            .map {
+                try composeTranslator(
+                    forExtensible: $0,
+                    specifications: specifications,
+                    parameters: parameters,
+                    translatorsFolder: translatorsFolder
+                )
+            }
+        return structuresImplementations + classesImplementations
     }
 
-    /// Composes a single translator for the given structure
+    /// Composes a single translator for the given extensible
     /// - Parameters:
-    ///   - structure: some plain object's structure
+    ///   - extensible: some plain object specification
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: curent execution parameters
     ///   - translatorsFolder: target translators folder for generated classes
     /// - Throws: generating errors
     /// - Returns: necessary translator implementation
-    private func composeTranslator(
-        forStructure structure: StructureSpecification,
+    private func composeTranslator<T: ExtensibleSpecification>(
+        forExtensible extensible: T,
         specifications: Specifications,
         parameters: AutographExecutionParameters,
         translatorsFolder: String
     ) throws -> AutographImplementation {
-        let objectName = structure.name.extractedPlainObjectName
+        let objectName = extensible.name.extractedPlainObjectName
         let code = """
         // MARK: - \(objectName)Translator
 
@@ -95,7 +109,7 @@ public final class RealmTranslatorImplementationComposer {
 
             func translate(model: DatabaseModel) throws -> PlainModel {
         \(try modelTranslationDefinition(
-            forStructure: structure,
+            forExtensible: extensible,
             specifications: specifications,
             parameters: parameters
         ))
@@ -112,7 +126,7 @@ public final class RealmTranslatorImplementationComposer {
                     databaseModel.uniqueId = plain.uniqueId.rawValue
                 }
         \(try modelAssignmentDefinition(
-            forStructure: structure,
+            forExtensible: extensible,
             specifications: specifications,
             parameters: parameters
         ))
@@ -137,17 +151,17 @@ public final class RealmTranslatorImplementationComposer {
 
     /// Returns a sequence of target models's properties assignments
     /// - Parameters:
-    ///   - structure: target structure specification
+    ///   - extensible: target extensible specification
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: curent execution parameters
     /// - Throws: generating errors
     /// - Returns: a sequence of target models's properties assignments
-    private func modelAssignmentDefinition(
-        forStructure structure: StructureSpecification,
+    private func modelAssignmentDefinition<T: ExtensibleSpecification>(
+        forExtensible extensible: T,
         specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> String {
-        let assignmentSequence = try structure.properties
+        let assignmentSequence = try extensible.properties
             .filter { "UniqueID" != $0.type.verse }
             .filter { $0.body == nil }
             .map {
@@ -270,17 +284,17 @@ public final class RealmTranslatorImplementationComposer {
 
     /// Returns a plain object initialization code
     /// - Parameters:
-    ///   - structure: target structure specification
+    ///   - extensible: target extensible specification
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: curent execution parameters
     /// - Throws: generating errors
     /// - Returns: a plain object initialization code
-    private func modelTranslationDefinition(
-        forStructure structure: StructureSpecification,
+    private func modelTranslationDefinition<T: ExtensibleSpecification>(
+        forExtensible extensible: T,
         specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> String {
-        let propertiesInitializerSequence = try structure.properties
+        let propertiesInitializerSequence = try extensible.properties
             .filter { "UniqueID" != $0.type.verse }
             .filter { $0.body == nil }
             .map {
@@ -292,14 +306,14 @@ public final class RealmTranslatorImplementationComposer {
             }
             .joined(separator: ",\n")
         let necessaryGuardSequence = try self.necessaryGuardSequence(
-            forStructure: structure,
+            forExtensible: extensible,
             specifications: specifications,
             parameters: parameters
         )
         let returnKeyword = necessaryGuardSequence.isEmpty ? "" : "return ".indent(2)
-        let structureName = returnKeyword.isEmpty ? structure.name.indent(2) : structure.name
+        let extensibleName = returnKeyword.isEmpty ? extensible.name.indent(2) : extensible.name
         return """
-        \(necessaryGuardSequence)\(returnKeyword)\(structureName)(
+        \(necessaryGuardSequence)\(returnKeyword)\(extensibleName)(
         \(propertiesInitializerSequence)
         \(")".indent(2))
         """
@@ -307,18 +321,18 @@ public final class RealmTranslatorImplementationComposer {
 
     /// Composes guard sequence for some required properties
     /// - Parameters:
-    ///   - structure: target structure specification
+    ///   - extensible: target extensible specification
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: curent execution parameters
     /// - Throws: generating errors
     /// - Returns: guard sequence for some required properties
-    private func necessaryGuardSequence(
-        forStructure structure: StructureSpecification,
+    private func necessaryGuardSequence<T: ExtensibleSpecification>(
+        forExtensible extensible: T,
         specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> String {
         let ignoredTypes = ["UniqueID", "URL"]
-        let sequence = structure.properties
+        let sequence = extensible.properties
             .filter { !ignoredTypes.contains($0.type.verse) }
             .filter { $0.body == nil }
             .reduce("") { res, property in
@@ -334,7 +348,7 @@ public final class RealmTranslatorImplementationComposer {
                         domain: "com.incetro.\(name.extractedPlainObjectName.lowercased())-translator",
                         code: 1000,
                         userInfo: [
-                            NSLocalizedDescriptionKey: "Cannot find \(name.extractedPlainObjectName.modelObjectName) instance for \(structure.name) with id: '\\(model.uniqueId)'"
+                            NSLocalizedDescriptionKey: "Cannot find \(name.extractedPlainObjectName.modelObjectName) instance for \(extensible.name) with id: '\\(model.uniqueId)'"
                         ]
                     )
                 }\n

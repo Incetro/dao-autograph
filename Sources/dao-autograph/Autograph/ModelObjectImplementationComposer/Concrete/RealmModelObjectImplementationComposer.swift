@@ -11,7 +11,7 @@ import Autograph
 
 // MARK: - RealmModelObjectImplementationComposer
 
-public final class RealmModelObjectImplementationComposer {
+public final class RealmModelObjectImplementationComposer<Extensible: ExtensibleSpecification> {
 
     /// Returns general property specification for model object
     /// - Parameters:
@@ -294,7 +294,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
     public var annotation: String { "realm" }
 
     public func model(
-        fromStructure structure: StructureSpecification,
+        fromExtensible extensible: Extensible,
         usingSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> AutographImplementation {
@@ -305,7 +305,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
             throw DAOAutographError.noProjectName
         }
         var modelProperties: [PropertySpecification] = []
-        for property in structure.properties where property.body == nil {
+        for property in extensible.properties where property.body == nil {
             if let prop = propertySpecification(
                 fromProperty: property,
                 usingSpecifications: specifications
@@ -313,7 +313,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
                 modelProperties.append(prop)
             }
         }
-        let objectName = structure.name.extractedPlainObjectName.modelObjectName
+        let objectName = extensible.name.extractedPlainObjectName.modelObjectName
         let header = headerComment(
             filename: objectName,
             projectName: projectName,
@@ -323,7 +323,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
             comment: nil,
             accessibility: .internal,
             attributes: [.final],
-            name: structure.name.extractedPlainObjectName.modelObjectName,
+            name: extensible.name.extractedPlainObjectName.modelObjectName,
             inheritedTypes: ["RealmModel"],
             properties: modelProperties,
             methods: []

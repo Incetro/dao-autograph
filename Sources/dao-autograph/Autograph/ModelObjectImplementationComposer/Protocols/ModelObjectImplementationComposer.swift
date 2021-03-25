@@ -13,18 +13,20 @@ import Autograph
 
 public protocol ModelObjectImplementationComposer {
 
+    associatedtype Extensible: ExtensibleSpecification
+
     /// Annotation that defines if the current
     /// composer should process the given specification
     var annotation: String { get }
 
     /// Returns some model object's implementation for
-    /// the given plain structure specification
+    /// the given plain object specification
     /// - Parameters:
-    ///   - structure: some plain structure
+    ///   - extensible: some plain object
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: current execution parameters
     func model(
-        fromStructure structure: StructureSpecification,
+        fromExtensible extensible: Extensible,
         usingSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> AutographImplementation
@@ -33,23 +35,23 @@ public protocol ModelObjectImplementationComposer {
 extension ModelObjectImplementationComposer {
 
     /// Returns some model object's implementations for
-    /// the given plain structures specifications
+    /// the given plain extensible specifications
     /// - Parameters:
-    ///   - structures: some plain structures
+    ///   - extensibles: some plain objects
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: current execution parameters
     func models(
-        fromStructures structures: [StructureSpecification],
+        fromExtensibles extensibles: [Extensible],
         usingSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> [AutographImplementation] {
-        try structures
+        try extensibles
             .filter {
                 $0.annotations.contains(annotationName: annotation)
             }
             .map {
                 try model(
-                    fromStructure: $0,
+                    fromExtensible: $0,
                     usingSpecifications: specifications,
                     parameters: parameters
                 )

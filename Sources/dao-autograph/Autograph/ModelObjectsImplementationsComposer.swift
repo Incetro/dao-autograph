@@ -26,12 +26,19 @@ extension ModelObjectsImplementationsComposer: ImplementationComposer {
         parameters: AutographExecutionParameters
     ) throws -> [AutographImplementation] {
         let plainStructures = specifications.structures.filter { $0.name.isPlainObjectName }
-        let realmModels = try RealmModelObjectImplementationComposer()
+        let plainClasses = specifications.classes.filter { $0.name.isPlainObjectName }
+        let structModels = try RealmModelObjectImplementationComposer<StructureSpecification>()
             .models(
-                fromStructures: plainStructures,
+                fromExtensibles: plainStructures,
                 usingSpecifications: specifications,
                 parameters: parameters
             )
-        return realmModels
+        let classModels = try RealmModelObjectImplementationComposer<ClassSpecification>()
+            .models(
+                fromExtensibles: plainClasses,
+                usingSpecifications: specifications,
+                parameters: parameters
+            )
+        return structModels + classModels
     }
 }
