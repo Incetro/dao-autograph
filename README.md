@@ -172,7 +172,7 @@ if [ -f $DAO_AUTOGRAPH_PATH ]
 then
     echo "dao-autograph executable found"
 else
-    osascript -e 'tell app "Xcode" to display dialog "DAO generator executable not found in \nCodegen/dao-utograph" buttons {"OK"} with icon caution'
+    osascript -e 'tell app "Xcode" to display dialog "DAO generator executable not found in \nCodegen/dao-autograph" buttons {"OK"} with icon caution'
 fi
 
 $DAO_AUTOGRAPH_PATH \
