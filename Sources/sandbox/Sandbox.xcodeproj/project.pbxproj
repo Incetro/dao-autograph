@@ -26,12 +26,10 @@
 		3390A20425FCD8B5006B6214 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3390A20225FCD8B5006B6214 /* LaunchScreen.storyboard */; };
 		3390A21825FCD99C006B6214 /* FeedEventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3390A21725FCD99C006B6214 /* FeedEventType.swift */; };
 		3390A21B25FCD9AD006B6214 /* UserPlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3390A21A25FCD9AD006B6214 /* UserPlainObject.swift */; };
-		A91D0515230F5AA1D19AC1F4 /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FEA7ADF51B145A2387FA689 /* Pods_Sandbox.framework */; };
+		8D9EA87B4CA8164356A687E0 /* Pods_Sandbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EAAE4DCBD7C273CB420E21 /* Pods_Sandbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		15FC87246F2881CD0AA1420C /* Pods-Sandbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.debug.xcconfig"; path = "Target Support Files/Pods-Sandbox/Pods-Sandbox.debug.xcconfig"; sourceTree = "<group>"; };
-		1676297D3C2F13AE549E88F1 /* Pods-Sandbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.release.xcconfig"; path = "Target Support Files/Pods-Sandbox/Pods-Sandbox.release.xcconfig"; sourceTree = "<group>"; };
 		3332FE2B26079D4900B541E6 /* AuthorPlainObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorPlainObject.swift; sourceTree = "<group>"; };
 		3332FE2E26079D6F00B541E6 /* BookPlainObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPlainObject.swift; sourceTree = "<group>"; };
 		3332FE342607A01600B541E6 /* BookModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookModelObject.swift; sourceTree = "<group>"; };
@@ -53,7 +51,9 @@
 		3390A20525FCD8B5006B6214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3390A21725FCD99C006B6214 /* FeedEventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedEventType.swift; sourceTree = "<group>"; };
 		3390A21A25FCD9AD006B6214 /* UserPlainObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPlainObject.swift; sourceTree = "<group>"; };
-		8FEA7ADF51B145A2387FA689 /* Pods_Sandbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6EF11D1FBC73804CE7438810 /* Pods-Sandbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.debug.xcconfig"; path = "Target Support Files/Pods-Sandbox/Pods-Sandbox.debug.xcconfig"; sourceTree = "<group>"; };
+		C46E183E147ACA49202F3CCB /* Pods-Sandbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sandbox.release.xcconfig"; path = "Target Support Files/Pods-Sandbox/Pods-Sandbox.release.xcconfig"; sourceTree = "<group>"; };
+		E9EAAE4DCBD7C273CB420E21 /* Pods_Sandbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sandbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A91D0515230F5AA1D19AC1F4 /* Pods_Sandbox.framework in Frameworks */,
+				8D9EA87B4CA8164356A687E0 /* Pods_Sandbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +74,7 @@
 				3390A1F625FCD8B4006B6214 /* Sandbox */,
 				3390A1F525FCD8B4006B6214 /* Products */,
 				996FF983B8029E381B0AF972 /* Pods */,
-				50A9E61ACF1B02E5A1C78AC1 /* Frameworks */,
+				C006BADB621CAD258A66B938 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,21 +153,21 @@
 			path = Translators;
 			sourceTree = "<group>";
 		};
-		50A9E61ACF1B02E5A1C78AC1 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8FEA7ADF51B145A2387FA689 /* Pods_Sandbox.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		996FF983B8029E381B0AF972 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15FC87246F2881CD0AA1420C /* Pods-Sandbox.debug.xcconfig */,
-				1676297D3C2F13AE549E88F1 /* Pods-Sandbox.release.xcconfig */,
+				6EF11D1FBC73804CE7438810 /* Pods-Sandbox.debug.xcconfig */,
+				C46E183E147ACA49202F3CCB /* Pods-Sandbox.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		C006BADB621CAD258A66B938 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9EAAE4DCBD7C273CB420E21 /* Pods_Sandbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,12 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3390A20825FCD8B5006B6214 /* Build configuration list for PBXNativeTarget "Sandbox" */;
 			buildPhases = (
-				F4CA3F08924AE4FC9AA51E30 /* [CP] Check Pods Manifest.lock */,
+				7A97DD5EE86F76C871417588 /* [CP] Check Pods Manifest.lock */,
 				33B3799425FCDB8F00F8563C /* dao-autograph */,
 				3390A1F025FCD8B4006B6214 /* Sources */,
 				3390A1F125FCD8B4006B6214 /* Frameworks */,
 				3390A1F225FCD8B4006B6214 /* Resources */,
-				97CD01658119643DABB5FA9C /* [CP] Embed Pods Frameworks */,
+				2B5A6671AD63CBD0563FEE6D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -239,6 +239,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2B5A6671AD63CBD0563FEE6D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		33B3799425FCDB8F00F8563C /* dao-autograph */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,24 +274,7 @@
 			shellPath = /bin/sh;
 			shellScript = "DAO_AUTOGRAPH_PATH=Codegen/dao-autograph\n\nif [ -f $DAO_AUTOGRAPH_PATH ]\nthen\n    echo \"dao-autograph executable found\"\nelse\n    osascript -e 'tell app \"Xcode\" to display dialog \"DAO generator executable not found in \\nCodegen/dao-utograph\" buttons {\"OK\"} with icon caution'\nfi\n\n$DAO_AUTOGRAPH_PATH \\\n    -translators \"$SRCROOT/$PROJECT_NAME/Translators\" \\\n    -plains \"$SRCROOT/$PROJECT_NAME/Models/Plains\" \\\n    -models \"$SRCROOT/$PROJECT_NAME/Models/Database\" \\\n    -enums \"$SRCROOT/$PROJECT_NAME/Models/Enums\" \\\n    -project_name $PROJECT_NAME\n";
 		};
-		97CD01658119643DABB5FA9C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Sandbox/Pods-Sandbox-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4CA3F08924AE4FC9AA51E30 /* [CP] Check Pods Manifest.lock */ = {
+		7A97DD5EE86F76C871417588 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -462,7 +462,7 @@
 		};
 		3390A20925FCD8B5006B6214 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15FC87246F2881CD0AA1420C /* Pods-Sandbox.debug.xcconfig */;
+			baseConfigurationReference = 6EF11D1FBC73804CE7438810 /* Pods-Sandbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -482,7 +482,7 @@
 		};
 		3390A20A25FCD8B5006B6214 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1676297D3C2F13AE549E88F1 /* Pods-Sandbox.release.xcconfig */;
+			baseConfigurationReference = C46E183E147ACA49202F3CCB /* Pods-Sandbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
