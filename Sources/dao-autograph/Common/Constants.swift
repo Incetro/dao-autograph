@@ -14,4 +14,5 @@ public enum Constants {
 
     static let plainObjectSuffix = "PlainObject"
     static let modelObjectSuffix = "ModelObject"
+    static let translatorSuffix = "Translator"
 }

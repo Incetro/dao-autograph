@@ -20,6 +20,10 @@ public extension String {
     var isModelObjectName: Bool {
         contains(Constants.modelObjectSuffix)
     }
+    
+    var isTranslatorName: Bool {
+        self.components(separatedBy: "T").last ?? "" == Constants.translatorSuffix.dropFirst()
+    }
 
     var extractedPlainObjectName: String {
         replacingOccurrences(of: Constants.plainObjectSuffix, with: "")

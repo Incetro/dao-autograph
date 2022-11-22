@@ -23,6 +23,9 @@ public enum DAOAutographExecutionParameters: String {
 
     /// Translators folder
     case translators = "-translators"
+    
+    /// translators assembley folder
+    case translatorsAssembley = "-translators_assembley"
 
     /// Current project name
     case projectName = "-project_name"
