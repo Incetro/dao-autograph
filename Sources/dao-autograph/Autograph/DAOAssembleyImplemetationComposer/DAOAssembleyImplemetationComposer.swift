@@ -1,5 +1,5 @@
 //
-//  TranslatorsAssembleyImplementationComposer.swift
+//  DAOAssembleyImplemetationComposer.swift
 //  dao-autograph
 //
 //
@@ -10,9 +10,9 @@
 import Synopsis
 import Autograph
 
-// MARK: - TranslatorsAssembleyImplementationComposer
+// MARK: - DAOAssembleyImplemetationComposer
 
-public final class TranslatorsAssembleyImplementationComposer {
+public final class DAOAssembleyImplemetationComposer {
 
     // MARK: - Initializers
 
@@ -21,11 +21,11 @@ public final class TranslatorsAssembleyImplementationComposer {
 
     // MARK: - Private
     
-    /// Composes a translators regestration for the given extensible
+    /// Composes DAO regestrations for the given extensible
     /// - Parameters:
     ///   - specifications: Synopsis specifications of our parsed code
-    /// - Returns: necessary translators regestration implementation string value
-    private func composeTranslatorsRegistration(specifications: Specifications) -> String {
+    /// - Returns: translators regestration implementation string value
+    private func composeDAORegistration(specifications: Specifications) -> String {
         let targetStructures = specifications
             .structures
             .filter { $0.name.isPlainObjectName }
@@ -34,35 +34,38 @@ public final class TranslatorsAssembleyImplementationComposer {
             .classes
             .filter { $0.name.isPlainObjectName }
             .filter { $0.annotations.contains(annotationName: "realm") }
-        let structuresTranslatorsRegestration = targetStructures.map {
-            composeTranslatorRegistration(
+        let structuresDAORegestration = targetStructures.map {
+            composeDAORegistration(
                 forExtensible: $0,
                 specifications: specifications
             )
         }
-        let classesTranslatorsRegestration = targetClasses.map {
-            composeTranslatorRegistration(
+        let classesDAORegestration = targetClasses.map {
+            composeDAORegistration(
                 forExtensible: $0,
                 specifications: specifications
             )
         }
-        return (structuresTranslatorsRegestration + classesTranslatorsRegestration)
-            .joined(separator: "\n\n").indent.indent
+        return (structuresDAORegestration + classesDAORegestration).joined(separator: "\n\n").indent.indent
     }
     
-    /// Composes a single translator registration for the given extensible
+    /// Composes a single dao registration for the given extensible
     /// - Parameters:
     ///   - extensible: some plain object specification
     ///   - specifications: Synopsis specifications of our parsed code
-    /// - Returns: necessary translator registration implementation string value
-    private func composeTranslatorRegistration<T: ExtensibleSpecification>(
+    /// - Returns: necessary dao registration implementation string value
+    private func composeDAORegistration<T: ExtensibleSpecification>(
         forExtensible extensible: T,
         specifications: Specifications
     ) -> String {
         """
-        container.register(\(extensible.name.extractedPlainObjectName)Translator.self) { resolver in
+        container.register(\(extensible.name.extractedPlainObjectName)DAO.self) { resolver in
+            let translator = resolver.resolve(\(extensible.name.extractedPlainObjectName)Translator.self).unwrap()
             let configuration = resolver.resolve(RealmConfiguration.self).unwrap()
-            return \(extensible.name.extractedPlainObjectName)Translator(configuration: configuration)
+            return \(extensible.name.extractedPlainObjectName)DAO(
+                storage: RealmStorage<\(extensible.name.extractedPlainObjectName)ModelObject>(configuration: configuration),
+                translator: translator
+            )
         }
         """
     }
@@ -79,14 +82,14 @@ public final class TranslatorsAssembleyImplementationComposer {
         specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> AutographImplementation? {
-        guard let translatorsAssembleyFolder = parameters[.translatorsAssembley] ?? parameters[.daoAssembliesPath] else {
+        guard let translatorsAssembleyFolder = parameters[.daoAssembley] ?? parameters[.daoAssembliesPath] else {
             return nil
         }
-        let registrationsStr = composeTranslatorsRegistration(specifications: specifications)
+        let registrationsStr = composeDAORegistration(specifications: specifications)
         let code = """
-        // MARK: - TranslatorsAssembly
+        // MARK: - DAOAssembly
 
-        final class TranslatorsAssembly: CollectableAssembly {
+        final class DAOAssembly: CollectableAssembly {
 
             required init() {
             }
@@ -101,13 +104,13 @@ public final class TranslatorsAssembleyImplementationComposer {
             throw DAOAutographError.noProjectName
         }
         let header = headerComment(
-            filename: "TranslatorsAssembly",
+            filename: "DAOAssembly",
             projectName: projectName,
-            imports: ["Monreau", "Swinject", "RealmSwift"]
+            imports: ["SDAO", "Monreau", "Swinject", "RealmSwift"]
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(translatorsAssembleyFolder)/TranslatorsAssembly.swift",
+            filePath: "/\(translatorsAssembleyFolder)/DAOAssembly.swift",
             sourceCode: sourceCode
         )
     }
@@ -115,19 +118,20 @@ public final class TranslatorsAssembleyImplementationComposer {
 
 // MARK: - ImplementationComposer
 
-extension TranslatorsAssembleyImplementationComposer: ImplementationComposer {
+extension DAOAssembleyImplemetationComposer: ImplementationComposer {
 
     public func compose(
         forSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> [AutographImplementation] {
-        let translatorsAssembleyImplementation = try composeTranslatorsAssembley(
+        let daoAssembleyImplementation = try composeTranslatorsAssembley(
             specifications: specifications,
             parameters: parameters
         )
-        guard let translatorsAssembleyImplementation = translatorsAssembleyImplementation else {
+        guard let daoAssembleyImplementation = daoAssembleyImplementation else {
             return []
         }
-        return [translatorsAssembleyImplementation]
+        return [daoAssembleyImplementation]
     }
 }
+

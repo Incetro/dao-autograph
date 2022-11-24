@@ -25,9 +25,6 @@ public enum DAOAutographError {
 
     /// You haven't specified a path to your app translators
     case noTranslatorsFolder
-    
-    /// You haven't specified a path to your app translators assembley
-    case noTranslatorsAssembleyFolder
 
     /// You haven't specified your project name
     case noProjectName
@@ -50,8 +47,6 @@ extension DAOAutographError: LocalizedError {
             return "You haven't specified a path to your app enums"
         case .noTranslatorsFolder:
             return "You haven't specified a path to your app translators"
-        case .noTranslatorsAssembleyFolder:
-            return "You haven't specified a path to your app translators assembley"
         case .noProjectName:
             return "You haven't specified your project name"
         case let .unknownType(type, propertyName: propertyName):

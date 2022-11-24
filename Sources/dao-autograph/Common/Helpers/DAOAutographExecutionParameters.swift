@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DAOAutographExecutionParameters.swift
 //  
 //
 //  Created by incetro on 3/20/21.
@@ -24,8 +24,17 @@ public enum DAOAutographExecutionParameters: String {
     /// Translators folder
     case translators = "-translators"
     
-    /// translators assembley folder
+    /// Translators assembley folder
     case translatorsAssembley = "-translators_assembley"
+    
+    /// DAO assembley folder
+    case daoAssembley = "-dao_assembley"
+    
+    /// DAO autograph aliases folder
+    case daoAutographAliases = "-dao_autograph_aliases"
+    
+    /// DAO autograph asemblies folder (generate all assemblies)
+    case daoAssembliesPath = "-dao_assemblies_path"
 
     /// Current project name
     case projectName = "-project_name"
