@@ -7,6 +7,7 @@
 //
 //  Copyright © 2020 Incetro Inc. All rights reserved.
 //
+// swiftlint:disable trailing_newline
 
 import SDAO
 import Monreau
@@ -45,7 +46,7 @@ extension AuthorTranslator: Translator {
             id: model.id,
             name: model.name,
             age: model.age,
-            genres: model.genres.compactMap(Genre.init)
+            genres: try GenreTranslator(configuration: configuration).translate(models: Array(model.genres))
         )
     }
 
@@ -63,6 +64,8 @@ extension AuthorTranslator: Translator {
         databaseModel.name = plain.name
         databaseModel.age = plain.age
         databaseModel.genres.removeAll()
-        databaseModel.genres.append(objectsIn: plain.genres.map(\.rawValue))
+        databaseModel.genres.append(objectsIn:
+            try GenreTranslator(configuration: configuration).translate(plains: plain.genres)
+        )
     }
 }

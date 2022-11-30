@@ -12,6 +12,8 @@ import Foundation
 
 public enum DAOAutographExecutionParameters: String {
 
+    // MARK: - Case
+
     /// Enums folder
     case enums = "-enums"
 
@@ -26,6 +28,9 @@ public enum DAOAutographExecutionParameters: String {
 
     /// Current project name
     case projectName = "-project_name"
+
+    /// Generated objects and properties accessibility
+    case accessibility = "-accessibility"
 }
 
 // MARK: - ExecutionParameters

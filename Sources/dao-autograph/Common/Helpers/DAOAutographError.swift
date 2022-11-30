@@ -40,9 +40,9 @@ extension DAOAutographError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .noModelsFolder:
-            return "You haven't specified a path to plain objects"
-        case .noPlainsFolder:
             return "You haven't specified a path to model objects"
+        case .noPlainsFolder:
+            return "You haven't specified a path to plain objects"
         case .noEnumsFolder:
             return "You haven't specified a path to your app enums"
         case .noTranslatorsFolder:

@@ -45,7 +45,7 @@ extension ModelObjectImplementationComposer {
         usingSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> [AutographImplementation] {
-        try extensibles
+        return try extensibles
             .filter {
                 $0.annotations.contains(annotationName: annotation)
             }

@@ -10,9 +10,9 @@ import SDAO
 // MARK: - AuthorPlainObject
 
 /// @realm
-struct AuthorPlainObject: Plain {
+public struct AuthorPlainObject: Plain {
 
-    var uniqueId: UniqueID {
+    public var uniqueId: UniqueID {
         .init(value: id)
     }
 

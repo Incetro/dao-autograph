@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/Incetro/autograph",
         "state": {
           "branch": "main",
-          "revision": "a46163e46bbdf1d2c997a1f82dd7039a66aeac87",
+          "revision": "ff0a60cf501bb29eb0fbdacd1e0a87f1dee656cd",
           "version": null
         }
       },
@@ -69,7 +69,7 @@
         "repositoryURL": "https://github.com/Incetro/synopsis",
         "state": {
           "branch": "main",
-          "revision": "836618569c7bd71c1653653fbc4648c2ad8ac965",
+          "revision": "f1a99c8349a64fd835ff562df2a3c560bfed1e0c",
           "version": null
         }
       },
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/jpsim/Yams.git",
         "state": {
           "branch": null,
-          "revision": "9003d51672e516cc59297b7e96bff1dfdedcb4ea",
-          "version": "4.0.4"
+          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
+          "version": "4.0.6"
         }
       }
     ]

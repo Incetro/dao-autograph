@@ -24,7 +24,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
         fromProperty property: PropertySpecification,
         withType type: TypeSpecification? = nil,
         isOptional: Bool = false,
-        usingSpecifications specifications: Specifications
+        usingSpecifications specifications: Specifications,
+        parameters: AutographExecutionParameters
     ) -> PropertySpecification? {
         switch type ?? property.type {
         case .boolean, .integer, .floatingPoint, .doublePrecision, .string, .date, .data:
@@ -32,7 +33,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 fromProperty: property,
                 withType: type ?? property.type,
                 isOptional: isOptional,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .object:
             let isOptionalObject: Bool
@@ -45,7 +47,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                             withType: type,
                             isOptional: isOptional,
                             isSwiftType: true,
-                            usingSpecifications: specifications
+                            usingSpecifications: specifications,
+                            parameters: parameters
                         )
                     }
                 }
@@ -60,14 +63,16 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                         withType: type,
                         isOptional: isOptional,
                         isSwiftType: true,
-                        usingSpecifications: specifications
+                        usingSpecifications: specifications,
+                        parameters: parameters
                     )
                 } else if name == "URL" {
                     return baseSpecification(
                         fromProperty: property,
                         withType: .string,
                         isOptional: false,
-                        usingSpecifications: specifications
+                        usingSpecifications: specifications,
+                        parameters: parameters
                     )
                 } else {
                     fallthrough
@@ -81,20 +86,23 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: nil,
                 isOptional: isOptionalObject,
                 isSwiftType: false,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .array(element: let type):
             return arraySpecification(
                 fromProperty: property,
                 elementType: type,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .optional(wrapped: let type):
             return propertySpecification(
                 fromProperty: property,
                 withType: type,
                 isOptional: true,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         default:
             return nil
@@ -114,7 +122,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
         withType type: TypeSpecification,
         isOptional: Bool,
         isSwiftType: Bool? = nil,
-        usingSpecifications specifications: Specifications
+        usingSpecifications specifications: Specifications,
+        parameters: AutographExecutionParameters
     ) -> PropertySpecification {
         switch type {
         case .boolean:
@@ -124,7 +133,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "false",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? true,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .integer:
             return baseSpecification(
@@ -133,7 +143,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "0",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? true,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .floatingPoint:
             return baseSpecification(
@@ -142,7 +153,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "0.0",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? true,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .doublePrecision:
             return baseSpecification(
@@ -151,7 +163,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "0.0",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? true,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .string:
             return baseSpecification(
@@ -160,7 +173,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "\"\"",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? false,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .date:
             return baseSpecification(
@@ -169,7 +183,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "Date()",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? false,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .data:
             return baseSpecification(
@@ -178,7 +193,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: "Data()",
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? false,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         case .object:
             return baseSpecification(
@@ -187,7 +203,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 withDefaultValue: nil,
                 isOptional: isOptional,
                 isSwiftType: isSwiftType ?? false,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             )
         default:
             fatalError()
@@ -209,13 +226,15 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
         withDefaultValue defaultValue: String?,
         isOptional: Bool,
         isSwiftType: Bool,
-        usingSpecifications specifications: Specifications
+        usingSpecifications specifications: Specifications,
+        parameters: AutographExecutionParameters
     ) -> PropertySpecification {
+        let accessibility = parameters[.accessibility].flatMap(Accessibility.init) ?? .internal
         if !isOptional {
             let nonSkippingTypeDeclarationTypes: [TypeSpecification] = [.floatingPoint, .doublePrecision]
             return .template(
                 comment: property.comment,
-                accessibility: .internal,
+                accessibility: accessibility.synopsisAccessibility,
                 declarationKind: .objcDynamicVar,
                 name: property.name,
                 type: property.type.realmAnalog(using: specifications),
@@ -233,7 +252,7 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
             )
             return .template(
                 comment: property.comment,
-                accessibility: .internal,
+                accessibility: accessibility.synopsisAccessibility,
                 declarationKind: .let,
                 name: property.name,
                 type: type,
@@ -245,7 +264,7 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
         } else {
             return .template(
                 comment: property.comment,
-                accessibility: .internal,
+                accessibility: accessibility.synopsisAccessibility,
                 declarationKind: .objcDynamicVar,
                 name: property.name,
                 type: .optional(wrapped: type.realmAnalog(using: specifications)),
@@ -265,7 +284,8 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
     private func arraySpecification(
         fromProperty property: PropertySpecification,
         elementType: TypeSpecification,
-        usingSpecifications specifications: Specifications
+        usingSpecifications specifications: Specifications,
+        parameters: AutographExecutionParameters
     ) -> PropertySpecification {
         let type = TypeSpecification.generic(
             name: "List",
@@ -273,9 +293,10 @@ public final class RealmModelObjectImplementationComposer<Extensible: Extensible
                 elementType.realmAnalog(using: specifications)
             ]
         )
+        let accessibility = parameters[.accessibility].flatMap(Accessibility.init) ?? .internal
         return .template(
             comment: property.comment,
-            accessibility: .internal,
+            accessibility: accessibility.synopsisAccessibility,
             declarationKind: .let,
             name: property.name,
             type: type,
@@ -308,7 +329,8 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
         for property in extensible.properties where property.body == nil {
             if let prop = propertySpecification(
                 fromProperty: property,
-                usingSpecifications: specifications
+                usingSpecifications: specifications,
+                parameters: parameters
             ) {
                 modelProperties.append(prop)
             }
@@ -319,9 +341,10 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
             projectName: projectName,
             imports: ["SDAO", "RealmSwift"]
         )
+        let accessibility = parameters[.accessibility].flatMap(Accessibility.init) ?? .internal
         let modelObjectClassSpecification = ClassSpecification.template(
             comment: nil,
-            accessibility: .internal,
+            accessibility: accessibility.synopsisAccessibility,
             attributes: [.final],
             name: extensible.name.extractedPlainObjectName.modelObjectName,
             inheritedTypes: ["RealmModel"],

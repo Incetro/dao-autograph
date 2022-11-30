@@ -10,9 +10,9 @@ import SDAO
 // MARK: - BookStorePlainObject
 
 /// @realm
-struct BookStorePlainObject: Plain {
+public struct BookStorePlainObject: Plain {
 
-    var uniqueId: UniqueID {
+    public var uniqueId: UniqueID {
         UniqueID(value: id)
     }
 

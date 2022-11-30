@@ -7,6 +7,7 @@
 //
 //  Copyright © 2020 Incetro Inc. All rights reserved.
 //
+// swiftlint:disable trailing_newline
 
 import SDAO
 import RealmSwift
@@ -27,5 +28,5 @@ final class AuthorModelObject: RealmModel {
     @objc dynamic var age = 0
 
     /// Author's preferrable genres
-    let genres = List<String>()
+    let genres = List<Genre>()
 }

@@ -7,6 +7,7 @@
 //
 //  Copyright © 2020 Incetro Inc. All rights reserved.
 //
+// swiftlint:disable trailing_newline
 
 import SDAO
 import RealmSwift
@@ -27,5 +28,5 @@ final class BookModelObject: RealmModel {
     @objc dynamic var author: AuthorModelObject?
 
     /// Book's genre
-    @objc dynamic var genre = ""
+    @objc dynamic var genre: Genre?
 }

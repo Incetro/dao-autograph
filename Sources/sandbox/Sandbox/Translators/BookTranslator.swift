@@ -7,6 +7,7 @@
 //
 //  Copyright © 2020 Incetro Inc. All rights reserved.
 //
+// swiftlint:disable trailing_newline
 
 import SDAO
 import Monreau
@@ -50,11 +51,20 @@ extension BookTranslator: Translator {
                 ]
             )
         }
+        guard let genre = model.genre else {
+            throw NSError(
+                domain: "com.incetro.genre-translator",
+                code: 1000,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Cannot find GenreModelObject instance for BookPlainObject with id: '\(model.uniqueId)'"
+                ]
+            )
+        }
         return BookPlainObject(
             id: model.id,
             name: model.name,
             author: try AuthorTranslator(configuration: configuration).translate(model: author),
-            genre: Genre(rawValue: model.genre).unwrap()
+            genre: try GenreTranslator(configuration: configuration).translate(model: genre)
         )
     }
 
@@ -71,6 +81,6 @@ extension BookTranslator: Translator {
         databaseModel.id = plain.id
         databaseModel.name = plain.name
         databaseModel.author = try AuthorTranslator(configuration: configuration).translate(plain: plain.author)
-        databaseModel.genre = plain.genre.rawValue
+        databaseModel.genre = try GenreTranslator(configuration: configuration).translate(plain: plain.genre)
     }
 }

@@ -7,6 +7,7 @@
 //
 //  Copyright © 2020 Incetro Inc. All rights reserved.
 //
+// swiftlint:disable trailing_newline
 
 import SDAO
 import Monreau

@@ -76,16 +76,17 @@ public final class RealmTranslatorImplementationComposer {
         parameters: AutographExecutionParameters,
         translatorsFolder: String
     ) throws -> AutographImplementation {
+        let accessibility = parameters[.accessibility].flatMap(Accessibility.init) ?? .internal
         let objectName = extensible.name.extractedPlainObjectName
         let code = """
         // MARK: - \(objectName)Translator
 
-        final class \(objectName)Translator {
+        \(accessibility.verse)final class \(objectName)Translator {
 
             // MARK: - Aliases
 
-            typealias PlainModel = \(objectName)PlainObject
-            typealias DatabaseModel = \(objectName)ModelObject
+            \(accessibility.verse)typealias PlainModel = \(objectName)PlainObject
+            \(accessibility.verse)typealias DatabaseModel = \(objectName)ModelObject
 
             /// \(objectName) storage
             private lazy var \(objectName.lowercasingFirstLetter())Storage = RealmStorage<\(objectName)ModelObject>(configuration: self.configuration)
@@ -98,7 +99,7 @@ public final class RealmTranslatorImplementationComposer {
             /// Default initializer
             /// - Parameters:
             ///   - configuration: current realm db config
-            init(configuration: RealmConfiguration) {
+            \(accessibility.verse)init(configuration: RealmConfiguration) {
                 self.configuration = configuration
             }
         }
@@ -107,7 +108,7 @@ public final class RealmTranslatorImplementationComposer {
 
         extension \(objectName)Translator: Translator {
 
-            func translate(model: DatabaseModel) throws -> PlainModel {
+            \(accessibility.verse)func translate(model: DatabaseModel) throws -> PlainModel {
         \(try modelTranslationDefinition(
             forExtensible: extensible,
             specifications: specifications,
@@ -115,13 +116,13 @@ public final class RealmTranslatorImplementationComposer {
         ))
             }
 
-            func translate(plain: PlainModel) throws -> DatabaseModel {
+            \(accessibility.verse)func translate(plain: PlainModel) throws -> DatabaseModel {
                 let model = try \(objectName.lowercasingFirstLetter())Storage.read(byPrimaryKey: plain.uniqueId.rawValue) ?? DatabaseModel()
                 try translate(from: plain, to: model)
                 return model
             }
 
-            func translate(from plain: PlainModel, to databaseModel: DatabaseModel) throws {
+            \(accessibility.verse)func translate(from plain: PlainModel, to databaseModel: DatabaseModel) throws {
                 if databaseModel.uniqueId.isEmpty {
                     databaseModel.uniqueId = plain.uniqueId.rawValue
                 }
