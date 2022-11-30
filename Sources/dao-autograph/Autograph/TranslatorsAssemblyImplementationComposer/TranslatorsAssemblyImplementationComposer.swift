@@ -1,5 +1,5 @@
 //
-//  TranslatorsAssembleyImplementationComposer.swift
+//  TranslatorsAssemblyImplementationComposer.swift
 //  dao-autograph
 //
 //
@@ -10,9 +10,9 @@
 import Synopsis
 import Autograph
 
-// MARK: - TranslatorsAssembleyImplementationComposer
+// MARK: - TranslatorsAssemblyImplementationComposer
 
-public final class TranslatorsAssembleyImplementationComposer {
+public final class TranslatorsAssemblyImplementationComposer {
 
     // MARK: - Initializers
 
@@ -61,25 +61,25 @@ public final class TranslatorsAssembleyImplementationComposer {
     ) -> String {
         """
         container.register(\(extensible.name.extractedPlainObjectName)Translator.self) { resolver in
-            let configuration = resolver.resolve(RealmConfiguration.self).unwrap()
+            let configuration = resolver.resolve(RealmConfiguration.self).unsafelyUnwrapped
             return \(extensible.name.extractedPlainObjectName)Translator(configuration: configuration)
         }
         """
     }
 
-    /// Composes translators assembley for the given extensible
+    /// Composes translators assembly for the given extensible
     /// - Parameters:
     ///   - extensible: some plain object specification
     ///   - specifications: Synopsis specifications of our parsed code
     ///   - parameters: curent execution parameters
-    ///   - translatorsAssembleyFolder: target translators assembley folder for generated class
+    ///   - translatorsAssemblyFolder: target translators assembly folder for generated class
     /// - Throws: generating errors
     /// - Returns: necessary translator implementation
-    private func composeTranslatorsAssembley(
+    private func composeTranslatorsAssembly(
         specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> AutographImplementation? {
-        guard let translatorsAssembleyFolder = parameters[.translatorsAssembley] ?? parameters[.daoAssembliesPath] else {
+        guard let translatorsAssemblyFolder = parameters[.translatorsAssembly] ?? parameters[.daoAssembliesPath] else {
             return nil
         }
         let registrationsStr = composeTranslatorsRegistration(specifications: specifications)
@@ -107,7 +107,7 @@ public final class TranslatorsAssembleyImplementationComposer {
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(translatorsAssembleyFolder)/TranslatorsAssembly.swift",
+            filePath: "/\(translatorsAssemblyFolder)/TranslatorsAssembly.swift",
             sourceCode: sourceCode
         )
     }
@@ -115,19 +115,19 @@ public final class TranslatorsAssembleyImplementationComposer {
 
 // MARK: - ImplementationComposer
 
-extension TranslatorsAssembleyImplementationComposer: ImplementationComposer {
+extension TranslatorsAssemblyImplementationComposer: ImplementationComposer {
 
     public func compose(
         forSpecifications specifications: Specifications,
         parameters: AutographExecutionParameters
     ) throws -> [AutographImplementation] {
-        let translatorsAssembleyImplementation = try composeTranslatorsAssembley(
+        let translatorsAssemblyImplementation = try composeTranslatorsAssembly(
             specifications: specifications,
             parameters: parameters
         )
-        guard let translatorsAssembleyImplementation = translatorsAssembleyImplementation else {
+        guard let translatorsAssemblyImplementation = translatorsAssemblyImplementation else {
             return []
         }
-        return [translatorsAssembleyImplementation]
+        return [translatorsAssemblyImplementation]
     }
 }

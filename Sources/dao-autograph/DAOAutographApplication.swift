@@ -40,13 +40,16 @@ public final class DAOAutographApplication: AutographApplication<TranslatorImple
         Path to the folder, where generated translator files should be registered to DI container.
         If not set, current working directory is used by default.
         
-        -daoAutograph_aliases <directory>
+        -dao_aliases <directory>
         The path to the folder where the aliases file should be placed.
         If not set, current working directory is used by default.
         
         -dao_assembly <directory>
         The path to the folder where the aliases should be registered to DI container.
         If not set, current working directory is used by default.
+
+        -dao_assemblies_path <directory>
+        The same path for -translators_assembly, -dao_aliases and -dao_assembly
         """
         )
     }

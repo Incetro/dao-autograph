@@ -32,16 +32,16 @@ extension TranslatorImplementationsComposer: ImplementationComposer {
         )
         let realmTranslatorsImplementations = try RealmTranslatorImplementationComposer()
             .compose(forSpecifications: specifications, parameters: parameters)
-        let translatorsAssembley = try TranslatorsAssembleyImplementationComposer()
+        let translatorsAssembly = try TranslatorsAssemblyImplementationComposer()
             .compose(forSpecifications: specifications, parameters: parameters)
-        let daoAssembley = try DAOAssembleyImplemetationComposer()
+        let daoAssembly = try DAOAssemblyImplemetationComposer()
             .compose(forSpecifications: specifications, parameters: parameters)
         let daoAutoghraphAliases = try DAOAutographAliasesImplemetationComposer()
             .compose(forSpecifications: specifications, parameters: parameters)
         return modelsImplementations
             + realmTranslatorsImplementations
-            + translatorsAssembley
-            + daoAssembley
+            + translatorsAssembly
+            + daoAssembly
             + daoAutoghraphAliases
     }
 }

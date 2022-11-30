@@ -396,7 +396,7 @@ public final class RealmTranslatorImplementationComposer {
                 result = "\(property.name): model.\(property.name).value"
             case .object(name: let name):
                 if specifications.enums.contains(where: { $0.name == name }) {
-                    result = "\(property.name): model.\(property.name).value.map(\(name).init).unwrap()"
+                    result = "\(property.name): model.\(property.name).value.map(\(name).init).unsafelyUnwrapped"
                 } else {
                     switch name {
                     case "URL":
@@ -414,11 +414,11 @@ public final class RealmTranslatorImplementationComposer {
             }
         case .object(name: let name):
             if specifications.enums.contains(where: { $0.name == name }) {
-                result = "\(property.name): \(name)(rawValue: model.\(property.name)).unwrap()"
+                result = "\(property.name): \(name)(rawValue: model.\(property.name)).unsafelyUnwrapped"
             } else {
                 switch name {
                 case "URL":
-                    result = "\(property.name): URL(string: model.\(property.name)).unwrap()"
+                    result = "\(property.name): URL(string: model.\(property.name)).unsafelyUnwrapped"
                 default:
                     result = "\(property.name): try \(name.extractedPlainObjectName)Translator(configuration: configuration).translate(model: \(property.name))"
                 }

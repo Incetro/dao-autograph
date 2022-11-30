@@ -26,14 +26,14 @@ public enum DAOAutographExecutionParameters: String {
     /// Translators folder
     case translators = "-translators"
     
-    /// Translators assembley folder
-    case translatorsAssembley = "-translators_assembley"
+    /// Translators assembly folder
+    case translatorsAssembly = "-translators_assembly"
     
-    /// DAO assembley folder
-    case daoAssembley = "-dao_assembley"
+    /// DAO assembly folder
+    case daoAssembly = "-dao_assembly"
     
     /// DAO autograph aliases folder
-    case daoAutographAliases = "-dao_autograph_aliases"
+    case daoAutographAliases = "-dao_aliases"
     
     /// DAO autograph asemblies folder (generate all assemblies)
     case daoAssembliesPath = "-dao_assemblies_path"
