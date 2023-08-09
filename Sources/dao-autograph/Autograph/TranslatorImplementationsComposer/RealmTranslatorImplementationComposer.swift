@@ -141,7 +141,7 @@ public final class RealmTranslatorImplementationComposer {
         let header = headerComment(
             filename: translatorName,
             projectName: projectName,
-            imports: ["SDAO", "Monreau"]
+            imports: ["SDAO", "Monreau", "Foundation"]
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(

@@ -339,7 +339,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
         let header = headerComment(
             filename: objectName,
             projectName: projectName,
-            imports: ["SDAO", "RealmSwift"]
+            imports: ["SDAO", "Foundation", "RealmSwift"]
         )
         let accessibility = parameters[.accessibility].flatMap(Accessibility.init) ?? .internal
         let modelObjectClassSpecification = ClassSpecification.template(
