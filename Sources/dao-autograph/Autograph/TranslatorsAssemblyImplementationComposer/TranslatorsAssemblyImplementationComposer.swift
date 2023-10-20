@@ -107,7 +107,7 @@ public final class TranslatorsAssemblyImplementationComposer {
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(translatorsAssemblyFolder)/TranslatorsAssembly.swift",
+            filePath: "\(translatorsAssemblyFolder)/TranslatorsAssembly.swift",
             sourceCode: sourceCode
         )
     }

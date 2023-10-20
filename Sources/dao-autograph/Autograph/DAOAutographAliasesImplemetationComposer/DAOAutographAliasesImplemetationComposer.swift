@@ -78,7 +78,7 @@ public final class DAOAutographAliasesImplemetationComposer {
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(daoAutographAliasesFolder)/DAOAutographAliases.swift",
+            filePath: "\(daoAutographAliasesFolder)/DAOAutographAliases.swift",
             sourceCode: sourceCode
         )
     }

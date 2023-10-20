@@ -145,7 +145,7 @@ public final class RealmTranslatorImplementationComposer {
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(translatorsFolder)/\(translatorName).swift",
+            filePath: "\(translatorsFolder)/\(translatorName).swift",
             sourceCode: sourceCode
         )
     }

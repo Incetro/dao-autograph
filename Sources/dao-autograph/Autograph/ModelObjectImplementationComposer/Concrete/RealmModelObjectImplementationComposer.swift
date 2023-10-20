@@ -353,7 +353,7 @@ extension RealmModelObjectImplementationComposer: ModelObjectImplementationCompo
         )
         let sourceCode = header + "\n" + modelObjectClassSpecification.verse
         return AutographImplementation(
-            filePath: "/\(modelsFolder)/\(objectName).swift",
+            filePath: "\(modelsFolder)/\(objectName).swift",
             sourceCode: sourceCode
         )
     }

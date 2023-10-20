@@ -110,7 +110,7 @@ public final class DAOAssemblyImplemetationComposer {
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
-            filePath: "/\(translatorsAssemblyFolder)/DAOAssembly.swift",
+            filePath: "\(translatorsAssemblyFolder)/DAOAssembly.swift",
             sourceCode: sourceCode
         )
     }
