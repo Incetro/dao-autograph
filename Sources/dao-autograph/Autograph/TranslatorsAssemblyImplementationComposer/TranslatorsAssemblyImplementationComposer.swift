@@ -103,7 +103,7 @@ public final class TranslatorsAssemblyImplementationComposer {
         let header = headerComment(
             filename: "TranslatorsAssembly",
             projectName: projectName,
-            imports: ["Monreau", "Swinject", "RealmSwift"]
+            imports: ["Monreau", "Swinject", "RealmSwift", "Foundation"]
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(

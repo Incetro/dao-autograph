@@ -106,7 +106,7 @@ public final class DAOAssemblyImplemetationComposer {
         let header = headerComment(
             filename: "DAOAssembly",
             projectName: projectName,
-            imports: ["SDAO", "Monreau", "Swinject", "RealmSwift"]
+            imports: ["SDAO", "Monreau", "Swinject", "RealmSwift", "Foundation"]
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(

@@ -1,29 +1,30 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "dao-autograph",
+    platforms: [
+        .macOS(.v12)
+    ],
     dependencies: [
         .package(
-            name: "Autograph",
             url: "https://github.com/Incetro/autograph",
-            .branch("main")
+            from: "0.3.0"
         ),
         .package(
-            name: "swift-argument-parser",
             url: "https://github.com/apple/swift-argument-parser.git",
-            .upToNextMinor(from: "0.3.1")
+            from: "1.2.1"
         )
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
+        .executableTarget(
             name: "dao-autograph",
             dependencies: [
-                "Autograph",
+                .product(name: "Autograph", package: "autograph"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ]
         ),

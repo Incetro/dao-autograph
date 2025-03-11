@@ -1,88 +1,86 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Autograph",
-        "repositoryURL": "https://github.com/Incetro/autograph",
-        "state": {
-          "branch": "main",
-          "revision": "ff0a60cf501bb29eb0fbdacd1e0a87f1dee656cd",
-          "version": null
-        }
-      },
-      {
-        "package": "Files",
-        "repositoryURL": "https://github.com/johnsundell/files.git",
-        "state": {
-          "branch": null,
-          "revision": "d273b5b7025d386feef79ef6bad7de762e106eaf",
-          "version": "4.2.0"
-        }
-      },
-      {
-        "package": "ShellOut",
-        "repositoryURL": "https://github.com/JohnSundell/ShellOut.git",
-        "state": {
-          "branch": null,
-          "revision": "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
-          "version": "2.3.0"
-        }
-      },
-      {
-        "package": "source-kitten-adapter",
-        "repositoryURL": "https://github.com/Incetro/source-kitten-adapter",
-        "state": {
-          "branch": null,
-          "revision": "f5ba0792326ff2f4b0fea7db328c8a41717d043c",
-          "version": "0.0.5"
-        }
-      },
-      {
-        "package": "SourceKitten",
-        "repositoryURL": "https://github.com/jpsim/SourceKitten",
-        "state": {
-          "branch": null,
-          "revision": "7f4be006fe73211b0fd9666c73dc2f2303ffa756",
-          "version": "0.31.0"
-        }
-      },
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser.git",
-        "state": {
-          "branch": null,
-          "revision": "9564d61b08a5335ae0a36f789a7d71493eacadfc",
-          "version": "0.3.2"
-        }
-      },
-      {
-        "package": "SWXMLHash",
-        "repositoryURL": "https://github.com/drmohundro/SWXMLHash.git",
-        "state": {
-          "branch": null,
-          "revision": "9183170d20857753d4f331b0ca63f73c60764bf3",
-          "version": "5.0.2"
-        }
-      },
-      {
-        "package": "Synopsis",
-        "repositoryURL": "https://github.com/Incetro/synopsis",
-        "state": {
-          "branch": "main",
-          "revision": "f1a99c8349a64fd835ff562df2a3c560bfed1e0c",
-          "version": null
-        }
-      },
-      {
-        "package": "Yams",
-        "repositoryURL": "https://github.com/jpsim/Yams.git",
-        "state": {
-          "branch": null,
-          "revision": "9ff1cc9327586db4e0c8f46f064b6a82ec1566fa",
-          "version": "4.0.6"
-        }
+  "pins" : [
+    {
+      "identity" : "autograph",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Incetro/autograph",
+      "state" : {
+        "revision" : "90fd6c6f1ce45778053be59d50eb96c1f074948e",
+        "version" : "0.3.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "files",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/johnsundell/files.git",
+      "state" : {
+        "revision" : "d273b5b7025d386feef79ef6bad7de762e106eaf",
+        "version" : "4.2.0"
+      }
+    },
+    {
+      "identity" : "shellout",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JohnSundell/ShellOut.git",
+      "state" : {
+        "revision" : "e1577acf2b6e90086d01a6d5e2b8efdaae033568",
+        "version" : "2.3.0"
+      }
+    },
+    {
+      "identity" : "source-kitten-adapter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Incetro/source-kitten-adapter",
+      "state" : {
+        "revision" : "5f1c76b39da86764d45b41552ae3e9e56406632b",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "sourcekitten",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/SourceKitten",
+      "state" : {
+        "revision" : "eb6656ed26bdef967ad8d07c27e2eab34dc582f2",
+        "version" : "0.37.0"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swxmlhash",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/drmohundro/SWXMLHash.git",
+      "state" : {
+        "revision" : "a853604c9e9a83ad9954c7e3d2a565273982471f",
+        "version" : "7.0.2"
+      }
+    },
+    {
+      "identity" : "synopsis",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Incetro/synopsis",
+      "state" : {
+        "revision" : "d28dfca57b6f63d4f4e2f41574a6297ca8fd2c83",
+        "version" : "0.6.0"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams.git",
+      "state" : {
+        "revision" : "b4b8042411dc7bbb696300a34a4bf3ba1b7ad19b",
+        "version" : "5.3.1"
+      }
+    }
+  ],
+  "version" : 2
 }

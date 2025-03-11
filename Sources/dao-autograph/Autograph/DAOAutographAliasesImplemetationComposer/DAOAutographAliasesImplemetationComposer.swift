@@ -74,7 +74,7 @@ public final class DAOAutographAliasesImplemetationComposer {
         let header = headerComment(
             filename: "DAOAutographAliases",
             projectName: projectName,
-            imports: ["SDAO", "Monreau"]
+            imports: ["SDAO", "Monreau", "Foundation"]
         )
         let sourceCode = header + "\n" + code
         return AutographImplementation(
